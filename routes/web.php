@@ -1,21 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 
-// Route Home
-Route::get('/', function () {
-    return view('index');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// Route Produk
-Route::get('/products', function () {
-    return view('products.index');
-})->name('products.index');
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
-// Route Detail Produk
-Route::get('/products/{slug}', function ($slug) {
-    return view('products.show');
-})->name('products.show');
+Route::get('/products/{product:slug}', [ProductController::class, 'show'])->name('products.show');
 
 // Route Keranjang
 Route::get('/cart', function () {

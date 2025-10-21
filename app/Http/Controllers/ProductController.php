@@ -29,8 +29,8 @@ class ProductController extends Controller
         // Laravel otomatis mencari produk berdasarkan slug atau ID
         // Kita perlu buat view 'products.show' untuk ini
 
-        // return view('products.show', [
-        //     'product' => $product
-        // ]);
+        return view('products.show', [
+             'product' => $product
+        ]);
     }
 }
