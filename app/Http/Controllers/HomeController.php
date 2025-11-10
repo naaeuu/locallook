@@ -14,13 +14,18 @@ class HomeController extends Controller
     {
         // Ambil produk yang kita tandai sebagai "Unggulan" di database
         $featuredProducts = Product::where('is_featured', true)
-                                   ->take(4) // Kita ambil 4 saja untuk homepage
-                                   ->latest() // Ambil yang terbaru
-                                   ->get();
+            ->take(4) // Kita ambil 4 saja untuk homepage
+            ->latest() // Ambil yang terbaru
+            ->get();
 
         // Kirim data 'featuredProducts' ke view 'index.blade.php'
         return view('index', [
             'featuredProducts' => $featuredProducts
         ]);
+    }
+
+    public function about()
+    {
+        return view('about');
     }
 }

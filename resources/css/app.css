@@ -1,406 +1,187 @@
-/* === Salin SEMUA CSS dari <style> di index.html, produk.html, dll === */
-/* --- Variabel Warna & Font --- */
-:root {
-    --maroon: #800000;
-    --maroon-dark: #550000;
-    --nude: #f5e9e2;
-    --black: #1a1a1a;
-    --white: #ffffff;
-    --font-heading: 'Playfair Display', serif;
-    --font-body: 'Montserrat', sans-serif;
-}
-/* --- Reset dan Body --- */
-body {
-    background-color: var(--nude);
-    color: var(--black);
-    font-family: var(--font-body);
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
-}
-/* --- Navbar --- */
-.navbar {
-    background-color: var(--nude);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    padding: 1rem 0;
-}
-.navbar-brand {
-    font-family: var(--font-heading);
-    font-size: 1.85rem;
-    font-weight: 700;
-    color: var(--maroon);
-    text-decoration: none;
-}
-.nav-link {
-    color: var(--maroon);
-    font-weight: 500;
-    transition: color 0.3s ease;
-    position: relative;
-    font-size: 1.05rem;
-}
-.nav-link:hover,
-.nav-link.active,
-.nav-link:focus {
-    color: var(--maroon-dark);
-    text-decoration: none;
-}
-.cart-badge {
-    position: absolute;
-    top: 0;
-    right: -10px;
-    font-size: 0.75rem;
-    background-color: var(--maroon);
-    color: var(--white);
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    box-shadow: 0 0 4px rgba(0,0,0,0.2);
-}
-.navbar-toggler {
-    border: none;
-    background-color: transparent;
-}
-.navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgb(128, 0, 0)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-}
-.navbar-toggler:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px var(--maroon);
-    border-radius: 4px;
-}
-/* --- Tombol --- */
-.btn-maroon {
-    background-color: var(--maroon);
-    color: var(--white);
-    border: none;
-    padding: 0.75rem 1.75rem;
-    font-weight: 600;
-    border-radius: 50px;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-    user-select: none;
-    box-shadow: 0 2px 5px rgba(128, 0, 0, 0.3);
-}
-.btn-maroon:hover,
-.btn-maroon:focus {
-    background-color: var(--maroon-dark);
-    color: var(--white);
-    text-decoration: none;
-    outline: none;
-    box-shadow: 0 3px 8px rgba(85, 0, 0, 0.7);
-}
-.btn-outline-maroon {
-    border: 1px solid var(--maroon);
-    color: var(--maroon);
-    background-color: transparent;
-    padding: 0.5rem 1.5rem;
-    font-weight: 600;
-    border-radius: 50px;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    user-select: none;
-}
-.btn-outline-maroon:hover,
-.btn-outline-maroon:focus {
-    background-color: var(--maroon);
-    color: var(--white);
-    text-decoration: none;
-    outline: none;
-    box-shadow: 0 2px 5px rgba(128, 0, 0, 0.3);
-}
-.btn-with-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-.btn-with-icon i {
-    font-size: 1rem;
-}
-/* --- Hero Section --- */
-.hero-section {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://asset.kompas.com/crops/ZEjGPUpWPCY1VOlHr-b8TVu95NQ=/0x0:1000x667/1200x800/data/photo/2024/01/21/65abfedd4b4c7.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 90vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: var(--white);
-}
-.hero-section h1 {
-    font-family: var(--font-heading);
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    font-weight: 700;
-    margin-bottom: 1rem;
-}
-.hero-section p {
-    font-size: clamp(1rem, 2.5vw, 1.25rem);
-    margin-bottom: 2rem;
-}
-/* --- General Section Styling --- */
-.section {
-    padding: 5rem 0;
-}
-.section-title {
-    font-family: var(--font-heading);
-    font-size: clamp(2rem, 5vw, 2.75rem);
-    margin-bottom: 3rem;
-    text-align: center;
-    color: var(--maroon);
-    user-select: none;
-}
-/* --- Product Card --- */
-.product-card {
-    border: none;
-    border-radius: 12px;
-    background-color: var(--white);
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    /* Tambahkan ini agar semua card punya tinggi sama */
-    height: 100%;
-}
+/* 1. Impor Google Font kita
+*/
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500;600;700&display=swap');
 
-.product-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-}
+/* 2. Gunakan @tailwind directives (CARA YANG BENAR UNTUK BREEZE)
+*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-.product-card img {
-    object-fit: cover;
-    max-height: 280px; /* Tetapkan tinggi maksimum */
-    width: 100%;
-    transition: transform 0.3s ease;
-    user-select: none;
-}
+/* 3. Layer komponen kustom kita
+   (Ini akan berfungsi karena 'maroon' sudah ada di tailwind.config.js)
+*/
+@layer components {
+    /* Style untuk Nav link Mobile */
+    .nav-link-mobile {
+        @apply block text-maroon font-medium text-lg p-2 rounded-md transition-colors duration-300;
+    }
+    .nav-link-mobile:hover, .nav-link-mobile.active {
+        @apply text-maroon-dark bg-black/5;
+    }
 
-.product-card:hover img {
-    transform: scale(1.05);
-}
+    /* Badge Keranjang */
+    .cart-badge {
+        @apply bg-maroon text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center;
+    }
 
-.product-card .card-body {
-    padding: 1.25rem;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    /* Pastikan teks tidak memperpanjang card */
-    justify-content: space-between;
-}
+    /* Tombol Utama */
+    .btn-maroon {
+        @apply bg-maroon text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-all duration-300
+               hover:bg-maroon-dark hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-maroon-dark focus:ring-offset-2;
+    }
 
-.product-card .card-title {
-    font-family: var(--font-body);
-    font-weight: 600;
-    font-size: 1.125rem;
-    margin-bottom: 0.75rem;
-    color: var(--black);
-    user-select: none;
-    /* Batasi jumlah baris teks */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* Maksimal 2 baris */
-    -webkit-box-orient: vertical;
-}
+    /* Tombol Outline */
+    .btn-outline-maroon {
+         @apply bg-transparent border border-maroon text-maroon font-semibold py-2 px-6 rounded-full transition-all duration-300
+               hover:bg-maroon hover:text-white;
+    }
 
-.product-price {
-    color: var(--maroon);
-    font-weight: 700;
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-    user-select: none;
-}
-/* --- Why Us / Feature Card --- */
-.feature-icon {
-    font-size: 3rem;
-    color: var(--maroon);
-    margin-bottom: 1rem;
-}
-.feature-title {
-    font-family: var(--font-body);
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-    color: var(--black);
-}
-.feature-card {
-    background-color: var(--white);
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    text-align: center;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-/* --- Footer --- */
-.footer {
-    background-color: var(--maroon);
-    padding: 3rem 1rem;
-    color: var(--white);
-    text-align: center;
-    user-select: none;
-}
-.footer .social-icons a {
-    color: var(--white);
-    font-size: 1.75rem;
-    margin: 0 15px;
-    transition: color 0.3s ease;
-}
-.footer .social-icons a:hover,
-.footer .social-icons a:focus {
-    color: var(--nude);
-    text-decoration: none;
-    outline: none;
-}
-/* --- Animasi On-Scroll --- */
-.fade-in {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-/* --- Filter Bar --- */
-.filter-bar {
-    margin-bottom: 3rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: flex-start; /* Rata kiri */
-    padding-left: 15px; /* Tambahkan padding kiri agar tidak menempel ke edge */
-}
-.filter-bar .btn-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-/* --- Keranjang Styling --- */
-.cart-item {
-    background-color: var(--white);
-    border-radius: 12px;
-    padding: 1.25rem;
-    margin-bottom: 1.25rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-.cart-item img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 8px;
-    flex-shrink: 0;
-}
-.cart-item-details {
-    flex-grow: 1;
-    min-width: 180px;
-}
-.cart-item-details h5 {
-    font-weight: 600;
-    font-size: 1.2rem;
-    margin-bottom: 0.25rem;
-    color: var(--black);
-}
-.cart-item-price {
-    color: var(--maroon);
-    font-weight: 700;
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-}
-.quantity-controls button {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.quantity-controls input {
-    width: 50px;
-    text-align: center;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-    margin: 0 0.5rem;
-    padding: 0.375rem 0.75rem;
-    font-family: var(--font-body);
-    font-weight: 500;
-}
-.quantity-controls .btn-remove {
-    background-color: transparent;
-    color: var(--maroon);
-    border: 1px solid var(--maroon);
-    font-size: 1.1rem;
-    margin-left: 1rem;
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.25rem;
-    width: auto;
-    height: auto;
-}
-.quantity-controls .btn-remove:hover {
-    background-color: var(--maroon);
-    color: var(--white);
-}
-.cart-summary {
-    background-color: var(--white);
-    border-radius: 12px;
-    padding: 1.75rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    position: sticky;
-    top: 80px;
-}
-.cart-summary h4 {
-    font-family: var(--font-heading);
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-    color: var(--maroon);
-}
-.cart-summary .list-group-item {
-    border: none;
-    padding: 0.75rem 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1.1rem;
-}
-.cart-summary .list-group-item:last-child {
-    border-top: 1px dashed #ccc;
-    margin-top: 0.75rem;
-    padding-top: 0.75rem;
-    font-size: 1.3rem;
-}
-.cart-summary .list-group-item strong {
-    color: var(--maroon);
-    font-size: 1.35rem;
-    font-weight: 700;
-}
-.empty-cart-message {
-    text-align: center;
-    padding: 3rem 0;
-    font-size: 1.25rem;
-    color: #666;
-}
-.empty-cart-message a {
-    color: var(--maroon);
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s ease;
-}
-.empty-cart-message a:hover,
-.empty-cart-message a:focus {
-    color: var(--maroon-dark);
-    text-decoration: underline;
+    /* Padding Section Global */
+    .section {
+        @apply py-16 md:py-24;
+    }
+
+    /* Judul Section Global */
+    .section-title {
+        @apply font-heading text-3xl md:text-4xl font-bold text-maroon text-center mb-12;
+    }
+
+    /* Feature Card (Why Us) */
+    .feature-card {
+        @apply bg-white p-8 rounded-lg shadow-md text-center h-full;
+    }
+    .feature-icon {
+        @apply text-5xl text-maroon mb-4;
+    }
+    .feature-title {
+        @apply text-xl font-semibold text-black mb-3;
+    }
+
+    /* Animasi Fade-in (dari script) */
+    .fade-in {
+        @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
+    }
+    .fade-in.visible {
+        @apply opacity-100 translate-y-0;
+    }
+
+    /* Filter Tombol Aktif */
+    .btn-outline-maroon.active {
+        @apply bg-maroon text-white;
+    }
+
+    /* Halaman Keranjang (Style Lama, akan diperbarui di bawah) */
+    .cart-item {
+        @apply bg-white rounded-lg shadow-md p-4 flex gap-4 items-start mb-4;
+    }
+    .cart-item-image {
+        @apply w-20 h-20 object-cover rounded-md flex-shrink-0;
+    }
+    .cart-item-title {
+        @apply font-semibold text-lg text-black hover:text-maroon;
+    }
+    .cart-item-price {
+        @apply text-gray-600 text-sm;
+    }
+    .cart-remove-button {
+        @apply text-sm text-red-600 hover:text-red-800 transition-colors duration-200 mt-2 block;
+    }
+    .cart-summary {
+        @apply bg-white rounded-lg shadow-md p-6 sticky top-28;
+    }
+
+    /* === GAYA BARU (LAYOUT TOKOPEDIA) === */
+
+    /* Banner Rekomendasi */
+    .recommendation-banner {
+        @apply bg-maroon text-white rounded-lg p-5 flex justify-between items-center
+            mb-6 shadow-lg transition-transform duration-300 hover:scale-[1.02];
+    }
+
+    /* Kartu Produk (Update) */
+    .product-card {
+        @apply bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-full
+            transition-all duration-300 hover:shadow-xl;
+    }
+
+    /* Teks Kartu Produk (Baru) */
+    .product-card-title {
+        @apply font-semibold text-base text-black mb-2 leading-tight;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .product-card-stock {
+        @apply text-xs font-medium text-gray-500 mb-2;
+    }
+
+    .product-card-price {
+        @apply text-maroon font-bold text-lg;
+    }
+
+    /* === GAYA BARU (HEADER TOKOPEDIA) === */
+
+    /* Search Bar */
+    .search-bar-wrapper {
+        @apply relative flex items-center w-full;
+    }
+    .search-bar-input {
+        @apply w-full py-2 pl-12 pr-4 border border-gray-300 rounded-lg
+               focus:outline-none focus:ring-2 focus:ring-maroon focus:border-transparent;
+    }
+    .search-bar-button {
+        @apply absolute left-4 text-gray-400;
+    }
+
+    /* Cart Icon */
+    .cart-icon-wrapper {
+        @apply relative;
+    }
+
+    /* Category Navigation */
+    .category-nav-link {
+        @apply text-gray-700 font-medium relative py-1 transition-colors duration-300 hover:text-maroon;
+    }
+    .category-nav-link.active {
+        @apply text-maroon;
+    }
+    .category-nav-link.active::after {
+        content: '';
+        @apply absolute bottom-[-13px] left-0 w-full h-1 bg-maroon;
+    }
+
+    /* Utility untuk menyembunyikan scrollbar */
+    .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* === GAYA BARU (LOGIN & HOVER KERANJANG) === */
+
+    /* Style untuk popup hover keranjang */
+    .cart-hover-popup {
+        @apply absolute top-full right-0 z-10 mt-2 w-80;
+        @apply bg-white rounded-lg shadow-xl border border-gray-200;
+    }
+
+    /* === GAYA BARU (KONTROL KUANTITAS KERANJANG) === */
+    /* INI ADALAH STYLE YANG HILANG */
+    .quantity-control {
+        @apply flex items-center border border-gray-300 rounded-lg;
+    }
+    .quantity-btn {
+        @apply w-10 h-10 flex items-center justify-center text-lg text-gray-700
+               hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+    .quantity-input {
+        @apply w-12 h-10 text-center border-x border-gray-300
+               focus:outline-none focus:ring-0;
+    }
 }

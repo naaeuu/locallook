@@ -1,75 +1,51 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
 @section('title', 'Detail Produk - ' . $product->name)
 
 @section('content')
-<div class="container py-5">
-    <div class="row">
-        <div class="col-md-6 fade-in">
-            <img src="{{ asset('storage/' . $product->image_url) }}"
-                 id="product-image"
-                 class="img-fluid rounded shadow"
-                 alt="{{ $product->name }}">
-        </div>
-        <div class="col-md-6 fade-in" style="--delay: 0.1s;">
-            <h1 id="product-name">{{ $product->name }}</h1>
-            <p class="text-maroon fw-bold fs-4" id="product-price">
-                Rp {{ number_format($product->price, 0, ',', '.') }}
-            </p>
-            <p id="product-desc">{{ $product->description }}</p>
 
-            <button class="btn btn-maroon px-4 py-2"
-                    onclick="tambahKeKeranjang(
-                        {{ $product->id }},
-                        {{ json_encode($product->name) }},
-                        {{ $product->price }},
-                        {{ json_encode(asset('storage/' . $product->image_url)) }}
-                    )">
-                Tambah ke Keranjang
-            </button>
+    <div class="container mx-auto px-4 py-16">
+        <div class="bg-white p-8 rounded-lg shadow-md">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-start">
 
-            <a href="{{ route('products.index') }}" class="d-block mt-3">← Kembali ke Produk</a>
-        </div>
-    </div>
-</div>
+                <div class="fade-in">
+                    <img src="{{ asset('storage/' . $product->image_url) }}" id="product-image"
+                        class="w-full h-auto object-cover rounded-lg shadow-lg" alt="{{ $product->name }}">
+                </div>
+
+                <div class="fade-in" style="--delay: 0.1s;">
+                    <h1 id="product-name" class="font-heading text-3xl md:text-4xl font-bold text-black mb-2">
+                        {{ $product->name }}
+                    </h1>
+
+                    <p id="product-price" class="text-maroon font-bold text-3xl mb-6">
+                        Rp {{ number_format($product->price, 0, ',', '.') }}
+                    </p>
+
+                    <div id="product-desc" class="text-gray-700 text-base leading-relaxed mb-8 prose">
+                        {{-- Menggunakan nl2br untuk menghargai baris baru di deskripsi --}}
+                        {!! nl2br(e($product->description)) !!}
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="btn-maroon" {{-- Fungsi ini (tambahKeKeranjang) memanggil dari cart.js --}}
+                            onclick="tambahKeKeranjang(
+                                {{ $product->id }},
+                                {{ json_encode($product->name) }},
+                                {{ $product->price }},
+                                {{ json_encode(asset('storage/' . $product->image_url)) }}
+                            )">
+                            <i class="fas fa-cart-plus mr-2"></i>
+                            Tambah ke Keranjang
+                        </button>
+                    </div>
+
+                    <a href="{{ route('products.index') }}"
+                        class="inline-block text-maroon hover:text-maroon-dark mt-8 transition-colors duration-300">
+                        &larr; Kembali ke Produk
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
-
-@push('scripts')
-{{--
-=====================================================================
-SCRIPT DI BAWAH INI SUDAH BENAR DAN TIDAK PERLU DIUBAH
-=====================================================================
---}}
-<script>
-// Fungsi global agar bisa dipanggil dari onclick
-window.tambahKeKeranjang = function(id, nama, harga, gambar) {
-    let cart = JSON.parse(localStorage.getItem('keranjang')) || [];
-    let existing = cart.find(item => item.id === id);
-    if (existing) {
-        existing.jumlah++;
-    } else {
-        cart.push({ id, nama, harga, gambar, jumlah: 1 });
-    }
-    localStorage.setItem('keranjang', JSON.stringify(cart));
-    alert(`"${nama}" ditambahkan ke keranjang!`);
-    updateCartBadge();
-};
-
-function updateCartBadge() {
-    const cart = JSON.parse(localStorage.getItem('keranjang')) || [];
-    const total = cart.reduce((sum, item) => sum + (item.jumlah || 0), 0);
-    const badge = document.getElementById('cart-badge');
-    if (badge) {
-        if (total > 0) {
-            badge.textContent = total;
-            badge.classList.remove('d-none');
-        } else {
-            badge.classList.add('d-none');
-        }
-    }
-}
-
-// Jalankan saat halaman dimuat
-document.addEventListener('DOMContentLoaded', updateCartBadge);
-</script>
-@endpush

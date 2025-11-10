@@ -2,35 +2,48 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product; // <-- Import model Product
-use Illuminate\Http\Request;
+use App\Models\Product;
+use Illuminate\Http\Request; // <-- PASTIKAN INI DI-IMPORT
 
 class ProductController extends Controller
 {
     /**
      * Menampilkan halaman list semua produk.
      */
-    public function index()
+    public function index(Request $request) // <-- Tambahkan Request $request
     {
-        // Ambil semua produk, urutkan dari yang terbaru, dan paginasi (12 produk per halaman)
-        $products = Product::latest()->paginate(12);
+        // Mulai query
+        $query = Product::query();
 
-        // Kirim data 'products' ke view 'products.index'
+        // Cek jika ada input pencarian
+        if ($request->has('search') && $request->input('search') != '') {
+            $searchTerm = $request->input('search');
+
+            // Modifikasi query untuk mencari di nama ATAU deskripsi
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('name', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('description', 'like', '%' . $searchTerm . '%');
+            });
+        }
+
+        // Ambil hasil, urutkan, dan paginasi
+        $products = $query->latest()->paginate(12);
+
+        // Kirim data ke view
         return view('products.index', [
-            'products' => $products
+            'products' => $products,
+            // Kirim balik search term untuk ditampilkan (opsional)
+            'searchTerm' => $request->input('search')
         ]);
     }
 
     /**
-     * (Nanti) Menampilkan halaman detail satu produk.
+     * Menampilkan halaman detail satu produk.
      */
     public function show(Product $product)
     {
-        // Laravel otomatis mencari produk berdasarkan slug atau ID
-        // Kita perlu buat view 'products.show' untuk ini
-
         return view('products.show', [
-             'product' => $product
+            'product' => $product
         ]);
     }
 }

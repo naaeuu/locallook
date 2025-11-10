@@ -1,71 +1,40 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
-@section('title', 'Keranjang')
+@section('title', 'Keranjang Belanja')
 
 @section('content')
-<div class="container py-5">
-    <h2>Keranjang Belanja</h2>
-    <div id="cart-items"></div>
-    <div id="empty-cart" class="text-center py-5 d-none">
-        <p>Keranjang Anda kosong.</p>
-        <a href="{{ route('products.index') }}" class="btn btn-maroon">Belanja Sekarang</a>
+    {{--
+  Menambahkan 'cart-page-data' untuk dibaca oleh cart-page.js
+  data-auth: Memberi tahu JS apakah user sudah login
+  data-csrf: Memberi token keamanan untuk form checkout
+--}}
+    <div id="cart-page-data" data-auth="{{ Auth::check() ? 'true' : 'false' }}" data-csrf="{{ csrf_token() }}">
     </div>
-</div>
-@endsection
 
-@push('scripts')
-<script>
-function renderCart() {
-    const cart = JSON.parse(localStorage.getItem('keranjang')) || [];
-    const itemsDiv = document.getElementById('cart-items');
-    const emptyDiv = document.getElementById('empty-cart');
+    <div class="container mx-auto px-4 py-16">
+        <h1 class="section-title fade-in">Keranjang Belanja</h1>
 
-    if (cart.length === 0) {
-        itemsDiv.innerHTML = '';
-        emptyDiv.classList.remove('d-none');
-        return;
-    }
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-    emptyDiv.classList.add('d-none');
-    let html = '<div class="row">';
-    cart.forEach((item, index) => {
-        html += `
-        <div class="col-12 mb-3 p-3 border rounded">
-            <div class="d-flex align-items-center">
-                <img src="${item.gambar}" width="80" class="rounded me-3">
-                <div>
-                    <h5>${item.nama}</h5>
-                    <p class="text-maroon">Rp ${parseInt(item.harga).toLocaleString('id-ID')}</p>
+            <div class="lg:col-span-2">
+                <div id="empty-cart-message" class="hidden text-center py-16 bg-white rounded-lg shadow-md">
+                    <p class="text-xl text-gray-600 mb-6">Keranjang Anda masih kosong.</p>
+                    <a href="{{ route('products.index') }}" class="btn-maroon">
+                        Mulai Belanja Sekarang
+                    </a>
                 </div>
-                <div class="ms-auto">
-                    <button class="btn btn-sm btn-outline-danger" onclick="removeItem(${index})">Hapus</button>
+
+                <div id="cart-items-container" class="space-y-4">
+                    {{-- Item keranjang akan dirender oleh cart-page.js di sini --}}
                 </div>
             </div>
+
+            <div class="lg:col-span-1">
+                <div id="cart-summary-container" class="cart-summary hidden">
+                    {{-- Ringkasan akan dirender oleh cart-page.js di sini --}}
+                </div>
+            </div>
+
         </div>
-        `;
-    });
-    html += '</div>';
-    itemsDiv.innerHTML = html;
-    updateCartBadge();
-}
-
-function removeItem(index) {
-    const cart = JSON.parse(localStorage.getItem('keranjang')) || [];
-    cart.splice(index, 1);
-    localStorage.setItem('keranjang', JSON.stringify(cart));
-    renderCart();
-}
-
-function updateCartBadge() {
-    const cart = JSON.parse(localStorage.getItem('keranjang')) || [];
-    const total = cart.reduce((sum, item) => sum + (item.jumlah || 0), 0);
-    const badge = document.getElementById('cart-badge');
-    if (badge) {
-        badge.textContent = total;
-        badge.classList.toggle('d-none', total === 0);
-    }
-}
-
-document.addEventListener('DOMContentLoaded', renderCart);
-</script>
-@endpush
+    </div>
+@endsection
