@@ -14,6 +14,9 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="{{ config('midtrans.client_key') }}"></script>
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -47,7 +50,6 @@
     @if (session('clear_cart'))
         <script>
             localStorage.removeItem('keranjang');
-            // Update badge di navbar (dari cart.js)
             if (typeof updateCartBadge === 'function') {
                 updateCartBadge();
             }

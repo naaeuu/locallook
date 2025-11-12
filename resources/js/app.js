@@ -1,8 +1,9 @@
 import './bootstrap';
-import './cart.js';         // <-- Mengimpor file keranjang (yang sudah diperbaiki)
-import './animations.js';  // <-- Mengimpor file animasi (BARU)
+import './cart.js';
+import './animations.js';
 import './product-filter.js';
 import './cart-page.js';
+import './checkout-address.js';
 import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;

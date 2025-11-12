@@ -4,7 +4,6 @@
 
 @section('content')
 
-    {{-- 1. Hero/Banner Halaman "Tentang" --}}
     <section class="section bg-gray-100 text-center fade-in">
         <div class="container mx-auto px-4">
             <h1 class="section-title">Tentang Lokalook</h1>
@@ -15,12 +14,10 @@
         </div>
     </section>
 
-    {{-- 2. Konten Visi Misi (Konten Standar Landing Page) --}}
     <section class="section bg-white">
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div class="fade-in">
-                    {{-- Anda bisa ganti URL gambar ini --}}
                     <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                         alt="Interior toko fashion lokal"
                         class="rounded-lg shadow-xl w-full h-auto object-cover aspect-video">
@@ -40,7 +37,6 @@
         </div>
     </section>
 
-    {{-- 3. Bagian "Kenapa Memilih Kami?" (Dipindahkan dari index.blade.php) --}}
     <section id="why-us" class="section bg-gray-100" aria-labelledby="why-us-title">
         <div class="container mx-auto px-4">
             <h2 id="why-us-title" class="section-title fade-in">Kenapa Memilih Kami?</h2>

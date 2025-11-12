@@ -49,18 +49,4 @@
             </button>
         </div>
     </form>
-
-    <div class="my-6 relative">
-        <div class="absolute inset-0 flex items-center">
-            <div class="w-full border-t border-gray-300"></div>
-        </div>
-        <div class="relative flex justify-center text-sm">
-            <span class="px-2 bg-white text-gray-500">atau masuk dengan</span>
-        </div>
-    </div>
-    <div class="space-y-4">
-        <button type="button" class="btn-outline-maroon w-full justify-center py-2 text-base font-normal">
-            <i class="fab fa-google mr-2"></i> Google
-        </button>
-    </div>
 </x-guest-layout>

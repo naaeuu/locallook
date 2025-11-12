@@ -77,30 +77,27 @@ function renderCart() {
     // Render Summary
     const total = subtotal;
 
-    // Cek auth status dari Blade (kita akan tambahkan di Langkah 3)
+    // Cek auth status dari Blade
     const authCheck = document.getElementById('cart-page-data')?.dataset.auth === 'true';
     let checkoutButton;
 
+    // === PERUBAHAN DI SINI ===
     if (authCheck) {
-        // Jika sudah login, siapkan form checkout
+        // Jika sudah login, arahkan ke halaman 'pilih alamat'
         checkoutButton = `
-            <form action="/checkout" method="POST" id="checkout-form">
-                <input type="hidden" name="_token" value="${document.getElementById('cart-page-data').dataset.csrf}">
-                <input type="hidden" name="cart" id="checkout-cart-data">
-
-                <button type="button" onclick="submitCheckout()" class="btn-maroon w-full mt-6">
-                    Lanjut ke Checkout
-                </button>
-            </form>
+            <button class="btn-maroon w-full mt-6" onclick="window.location.href='/checkout/address'">
+                Lanjut ke Alamat
+            </button>
         `;
     } else {
         // Jika belum login, arahkan ke halaman login
         checkoutButton = `
             <button class="btn-maroon w-full mt-6" onclick="window.location.href='/login'">
-                Lanjut ke Checkout
+                Lanjut ke Alamat
             </button>
         `;
     }
+    // === AKHIR PERUBAHAN ===
 
     summaryDiv.innerHTML = `
         <h2 class="font-heading text-2xl font-bold text-maroon mb-4">Ringkasan</h2>
@@ -144,7 +141,6 @@ function decreaseQuantity(index) {
         localStorage.setItem('keranjang', JSON.stringify(cart));
         renderCart();
     } else {
-        // Jika kuantitas 1, panggil removeItem
         removeItem(index);
     }
 }
@@ -153,30 +149,19 @@ function decreaseQuantity(index) {
  * Menghapus item dari keranjang
  */
 function removeItem(index) {
-    // Kita hapus konfirmasi agar lebih cepat
     const cart = JSON.parse(localStorage.getItem('keranjang')) || [];
     cart.splice(index, 1);
     localStorage.setItem('keranjang', JSON.stringify(cart));
     renderCart();
 }
 
-/**
- * BARU: Menyiapkan dan submit form checkout
- */
-function submitCheckout() {
-    // Ambil data keranjang dari localStorage
-    const cart = localStorage.getItem('keranjang');
-    // Masukkan data ke input form
-    document.getElementById('checkout-cart-data').value = cart;
-    // Submit form
-    document.getElementById('checkout-form').submit();
-}
+// Kita tidak butuh submitCheckout() lagi di file ini
+// window.submitCheckout = submitCheckout;
 
 // Ekpos fungsi ke global scope
 window.removeItem = removeItem;
 window.increaseQuantity = increaseQuantity;
 window.decreaseQuantity = decreaseQuantity;
-window.submitCheckout = submitCheckout;
 
 // Jalankan renderCart() saat halaman dimuat
 document.addEventListener('DOMContentLoaded', renderCart);

@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\MidtransNotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,46 +23,51 @@ Route::get('/cart', function () {
     return view('cart.index');
 })->name('cart.index');
 
-Route::post('/checkout', [CheckoutController::class, 'store'])
-    ->middleware('auth')
-    ->name('checkout.store');
+
 /*
 |--------------------------------------------------------------------------
-| RUTE AUTENTIKASI DARI BREEZE
+| RUTE CHECKOUT BARU (MIDTRANS)
 |--------------------------------------------------------------------------
 */
+Route::middleware('auth')->group(function () {
+    // 1. Halaman Pilih Alamat (Tetap)
+    Route::get('/checkout/address', [CheckoutController::class, 'addressForm'])->name('checkout.address');
 
-// Rute Dashboard (halaman setelah login)
+    // 2. Rute Simpan Alamat Baru (Tetap)
+    Route::post('/checkout/address', [CheckoutController::class, 'storeAddress'])->name('checkout.address.store');
+
+    // 3. RUTE BARU: Membuat Pembayaran & Dapat Token (Menggantikan processCheckout)
+    Route::post('/checkout/pay', [CheckoutController::class, 'createPayment'])->name('checkout.pay');
+});
+
+/*
+|--------------------------------------------------------------------------
+| RUTE WEBHOOK MIDTRANS
+|--------------------------------------------------------------------------
+*/
+// Rute ini akan dipanggil oleh server Midtrans.
+// beri nama 'midtrans.notification' dan JANGAN diberi middleware 'auth' atau 'csrf'
+Route::post('/midtrans/notification', [MidtransNotificationController::class, 'handle'])->name('midtrans.notification');
+
+
+/*
+|--------------------------------------------------------------------------
+| RUTE AUTENTIKASI BREEZE & ADMIN
+|--------------------------------------------------------------------------
+*/
 Route::get('/dashboard', function () {
-    // Nanti kita akan arahkan ini ke homepage saja
     return redirect()->route('home');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Rute Profile
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Baris ini memuat semua rute /login, /register, /logout
 require __DIR__ . '/auth.php';
 
-
-// ===================================================
-// BARU: GRUP RUTE ADMIN
-// ===================================================
-Route::middleware(['auth', 'admin'])->group(function () {
-
-    // Prefix 'admin' agar URL-nya menjadi /admin/...
-    // Name 'admin.' agar nama rutenya menjadi admin....
-    Route::prefix('admin')->name('admin.')->group(function () {
-
-        // Rute: /admin/dashboard
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-        // (Nanti kita akan tambahkan rute CRUD produk di sini)
-        // Route::resource('/products', AdminProductController::class);
-        Route::resource('/products', AdminProductController::class);
-    });
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('/products', AdminProductController::class);
 });

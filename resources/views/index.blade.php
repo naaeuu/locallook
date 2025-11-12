@@ -1,7 +1,5 @@
 @extends('layouts.main')
-
 @section('title', 'Local Look - Gaya Khas Nusantara')
-
 @section('content')
 
     <section id="featured-products" class="section bg-gray-100" aria-labelledby="featured-products-title">
@@ -23,19 +21,14 @@
                                         class="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-105">
                                 </div>
 
-                                {{-- UPDATE DI DALAM SINI --}}
                                 <div class="p-4 flex flex-col flex-1">
-                                    {{-- Wrapper untuk judul & stok --}}
                                     <div>
                                         <h3 class="product-card-title">{{ $product->name }}</h3>
-                                        {{-- BARIS BARU UNTUK STOK --}}
                                         <p class="product-card-stock">Stok: {{ $product->stock }}</p>
                                     </div>
-                                    {{-- 'mt-auto' akan mendorong harga ke bawah --}}
                                     <p class="product-card-price mt-auto">Rp
                                         {{ number_format($product->price, 0, ',', '.') }}</p>
                                 </div>
-                                {{-- AKHIR UPDATE --}}
                             </a>
 
                             <div class="px-4 pb-4">
